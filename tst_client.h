@@ -24,11 +24,11 @@ TEST(ReadClientInputFileFirstLine, Suite)
 {
     ASGNMENT::MessageSender sender;
     std::string fileP(ASGNMENT::inputFilePath);
-    std::string inputFirstLine =  "aaaa";
-    std::string inputSecondLine =  "1234";
+    std::string inputFirstLine =  "1234";
+    std::string inputSecondLine =  "Hello";
     sender.setFilePath(fileP);
-    std::string first   = sender.readNextInput();
-    std::string second  = sender.readNextInput();
+    std::string first   = sender.readNextInputFromFile();
+    std::string second  = sender.readNextInputFromFile();
     ASSERT_EQ(first,inputFirstLine);
     ASSERT_EQ(second,inputSecondLine);
 }
@@ -49,9 +49,8 @@ TEST(SendMessageOnQueue, Suite)
     ASGNMENT::AMessage message;
     message.m_message_id = 1;
     message.m_message_name = "a";
-
     std::cout<<"\nsizeof message =   "<<sizeof(message)<<std::endl;
 
-    int status = sender.sendMessageOnQueue(message);
+    int status = sender.sendAMessageOnQueue(message);
     std::cout<<status;
 }

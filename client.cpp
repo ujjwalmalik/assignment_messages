@@ -1,14 +1,15 @@
 #include"client.h"
 #include<sys/msg.h>
+ #include <errno.h>
 namespace ASGNMENT {
     void MessageSender::setFilePath(std::string filePath)
     {
         m_sFilePath = filePath;
-        if(inputFileStream.is_open())
+        if(m_inputFileStream.is_open())
         {
-            inputFileStream.close();
+            m_inputFileStream.close();
         }
-        inputFileStream.open(m_sFilePath.c_str(),std::ifstream::in);
+        m_inputFileStream.open(m_sFilePath.c_str(),std::ifstream::in);
     }
 
     std::string MessageSender::getFilePath()
@@ -16,10 +17,10 @@ namespace ASGNMENT {
         return m_sFilePath;
     }
 
-    std::string MessageSender::readNextInput()
+    std::string MessageSender::readNextInputFromFile()
     {
         std::string linr;
-        inputFileStream>>linr;
+        m_inputFileStream>>linr;
         return linr;
     }
 
@@ -33,14 +34,15 @@ namespace ASGNMENT {
     int MessageSender::createMessageQueue()
     {
         key_t queueKey = ftok(ASGNMENT::inputFilePath.c_str(),1);
-        m_iQueueId = msgget(queueKey,IPC_CREAT);
+        m_iQueueId = msgget(queueKey,IPC_CREAT|0666);
         return m_iQueueId;
     }
 
-    int MessageSender::sendMessageOnQueue(const AMessage& msg)
+    int MessageSender::sendAMessageOnQueue(const AMessage& msg)
     {
-        int message_size = 4;// sizeof(AMessage);
-        return msgsnd(m_iQueueId,&msg,message_size,IPC_NOWAIT);
+        QMessage m;
+        m = convertAMessageToQMessage(msg);
+        int stats = msgsnd(m_iQueueId,&m,sizeof(m),IPC_NOWAIT);
+        return stats;
     }
-
 }
