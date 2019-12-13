@@ -1,2 +1,0 @@
-1234	Hello
-5678	World

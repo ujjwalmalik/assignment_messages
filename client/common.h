@@ -2,7 +2,6 @@
 #define COMMON_H
 #include<iostream>
 #include<string.h>
-#include<vector>
 namespace ASGNMENT {
     const std::string inputFilePath = "../aa.txt";
     const int MAX_STRING_LEN = 60;

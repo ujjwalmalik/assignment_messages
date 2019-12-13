@@ -1,0 +1,7 @@
+Compiled and tested using QT5.9 on linux
+Bundles google test framework. See pro file for details
+
+Steps to compile (assuming QT5 is installed at /home/ujjwal/Qt5.12.1/5.12.1/gcc_64 and qmake is found at /home/ujjwal/Qt5.12.1/5.12.1/gcc_64/bin/
+
+1. /home/ujjwal/Qt5.12.1/5.12.1/gcc_64/bin/qmake assignment.pro 
+2. make
