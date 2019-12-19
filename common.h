@@ -4,7 +4,8 @@
 #include<string.h>
 #include<vector>
 namespace ASGNMENT {
-    const std::string inputFilePath = "../aa.txt";
+    const std::string inputFilePath = "/home/ujjwal/assignment/assignment_messages/input.txt";
+    const std::string outputFilePath = "/home/ujjwal/assignment/assignment_messages/output.txt";
     const int MAX_STRING_LEN = 60;
     struct AMessage
     {

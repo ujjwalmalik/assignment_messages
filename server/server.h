@@ -9,14 +9,15 @@ namespace  ASGNMENT {
     class MessageSender
     {
     public:
-        void setFilePath(std::string filePath);
+        void setInputFilePath(std::string filePath);
+        void setOutputFilePath(std::string filePath);
         std::string getFilePath();
         std::string readNextInputFromFile();
 
         void    createMessage( const std::__cxx11::string  &msgId, const std::__cxx11::string &msgName);
         int     createMessageQueue();
 
-        int receiveQMessageOnQueue();
+        QMessage receiveQMessageOnQueue();
         QMessage convertAMessageToQMessage(AMessage a)
         {
             QMessage m;
@@ -51,9 +52,13 @@ namespace  ASGNMENT {
             return m;
         }
 
+        bool writeMessageToFile(const QMessage &msg);
+        std::vector<QMessage> receiveAllQMessageOnQueue();
     private:
-        std::string m_sFilePath;
-        std::ifstream m_inputFileStream;
+        std::string     m_sInputFilePath;
+        std::string     m_sOutputFilePath;
+        std::ifstream   m_inputFileStream;
+        std::ofstream   m_outputFileStream;
 
         int m_iQueueId;
 

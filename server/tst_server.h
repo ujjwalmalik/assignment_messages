@@ -15,7 +15,7 @@ TEST(InvalidServerInputFilePath, Suite)
 {
     ASGNMENT::MessageSender sender;
     std::string fileP(ASGNMENT::inputFilePath);
-    sender.setFilePath(fileP);
+    sender.setInputFilePath(fileP);
     ASSERT_EQ(fileP,sender.getFilePath());
 }
 
@@ -26,7 +26,7 @@ TEST(ReadServerInputFileFirstLine, Suite)
     std::string fileP(ASGNMENT::inputFilePath);
     std::string inputFirstLine =  "1234";
     std::string inputSecondLine =  "Hello";
-    sender.setFilePath(fileP);
+    sender.setInputFilePath(fileP);
     std::string first   = sender.readNextInputFromFile();
     std::string second  = sender.readNextInputFromFile();
     ASSERT_EQ(first,inputFirstLine);
@@ -52,7 +52,7 @@ TEST(SendMessageOnQueue, Suite)
         message.m_message_name = "a";
         std::cout<<"\nsizeof message =   "<<sizeof(message)<<std::endl;
 
-        int status = sender.receiveQMessageOnQueue();
-        std::cout<<status;
+        sender.receiveQMessageOnQueue();
+
     }
 }

@@ -7,13 +7,17 @@ int serverSide()
 {
     ASGNMENT::MessageSender sender;
     std::string fileP(ASGNMENT::inputFilePath);
-    sender.setFilePath(fileP);
-    sender.createMessageQueue();
+    sender.setInputFilePath(fileP);
 
-    std::string first   = sender.readNextInputFromFile();
-    std::string second  = sender.readNextInputFromFile();
-    ASGNMENT::AMessage a(first,second);
-    sender.receiveQMessageOnQueue();
+    std::string outfileP(ASGNMENT::outputFilePath);
+    sender.setOutputFilePath(outfileP);
+
+    int queueId = sender.createMessageQueue();
+
+//    ASGNMENT::AMessage a(first,second);
+    ASGNMENT::QMessage m = sender.receiveQMessageOnQueue();
+    sender.writeMessageToFile(m);
+
     return 0;
 }
 

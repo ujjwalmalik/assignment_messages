@@ -27,8 +27,9 @@ namespace  ASGNMENT {
             m.message_id    = a.m_message_id;
             if(a.m_message_name.length()+1 < MAX_STRING_LEN)
             {
+                int p =  a.m_message_name.length();
                 strncpy(m.name,a.m_message_name.c_str(),a.m_message_name.length());
-                m.name[a.m_message_name.length()+1] = '\0';
+                m.name[a.m_message_name.length()] = '\0';
             }
             else
             {
