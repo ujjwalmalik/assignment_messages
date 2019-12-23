@@ -54,15 +54,20 @@ namespace ASGNMENT {
         QMessage m;
         bool bIsQueueEmpty = false;
         ssize_t size = 0;
+        int cnt = 0;
         do
         {
+            if(cnt == 19)
+            {
+                int a = 10;
+            }
+            ++cnt;
             size = msgrcv(m_iQueueId,&m,sizeof(QMessage),1,IPC_NOWAIT);
             if(size !=-1)
             {
                 messages.push_back(m);
-
             }
-            else // size = -1
+            else // size == -1
             {
                 int errorCode = errno;
                 if(ENOMSG == errorCode)
@@ -91,6 +96,15 @@ namespace ASGNMENT {
         else
         {
             //check if value of errno is ENOMSG
+        }
+    }
+
+    bool MessageSender::writeMessagesToFile(const std::vector<ASGNMENT::QMessage>& messages)
+    {
+        for(std::vector<ASGNMENT::QMessage>::const_iterator it = messages.begin();it!=messages.end();++it)
+        {
+            const QMessage m = *it;
+            writeMessageToFile(m);
         }
     }
 

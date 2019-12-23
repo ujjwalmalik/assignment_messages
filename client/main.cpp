@@ -14,10 +14,12 @@ int clientSide()
     {
         std::string first   = sender.readNextInputFromFile();
         std::string second  = sender.readNextInputFromFile();
-        ASGNMENT::AMessage a(first,second);
-        sender.sendAMessageOnQueue(a);
+        if((!first.length() == 0) && (!second.length() == 0))
+        {
+            ASGNMENT::AMessage a(first,second);
+            sender.sendAMessageOnQueue(a);
+        }
     }
-
     return 0;
 }
 

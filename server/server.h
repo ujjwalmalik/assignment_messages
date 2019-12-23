@@ -54,6 +54,7 @@ namespace  ASGNMENT {
 
         bool writeMessageToFile(const QMessage &msg);
         std::vector<QMessage> receiveAllQMessageOnQueue();
+        bool writeMessagesToFile(const std::vector<ASGNMENT::QMessage> &messages);
     private:
         std::string     m_sInputFilePath;
         std::string     m_sOutputFilePath;

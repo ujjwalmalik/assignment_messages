@@ -18,6 +18,8 @@ int serverSide()
     ASGNMENT::QMessage m = sender.receiveQMessageOnQueue();
     sender.writeMessageToFile(m);
 
+    std::vector<ASGNMENT::QMessage> messages = sender.receiveAllQMessageOnQueue();
+    sender.writeMessagesToFile(messages);
     return 0;
 }
 
