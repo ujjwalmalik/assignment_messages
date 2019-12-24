@@ -1,26 +1,26 @@
 #include "tst_server.h"
-#include"server.h"
+#include"../MessageReceiver.h"
 #include <gtest/gtest.h>
 #define UNIT_TESTING 0
 
-int serverSide()
+void serverSideDataReceive()
 {
-    ASGNMENT::MessageSender sender;
+    ASGNMENT::MessageReceiver dataReceiver;
     std::string fileP(ASGNMENT::inputFilePath);
-    sender.setInputFilePath(fileP);
+    dataReceiver.setInputFilePath(fileP);
 
     std::string outfileP(ASGNMENT::outputFilePath);
-    sender.setOutputFilePath(outfileP);
+    dataReceiver.setOutputFilePath(outfileP);
 
-    int queueId = sender.createMessageQueue();
+    int queueId = dataReceiver.createMessageQueue();
 
 //    ASGNMENT::AMessage a(first,second);
-    ASGNMENT::QMessage m = sender.receiveQMessageOnQueue();
-    sender.writeMessageToFile(m);
+    ASGNMENT::QMessage m = dataReceiver.receiveQMessageOnQueue();
+    dataReceiver.writeMessageToFile(m);
 
-    std::vector<ASGNMENT::QMessage> messages = sender.receiveAllQMessageOnQueue();
-    sender.writeMessagesToFile(messages);
-    return 0;
+    std::vector<ASGNMENT::QMessage> messages = dataReceiver.receiveAllQMessageOnQueue();
+    dataReceiver.writeMessagesToFile(messages);
+    return;
 }
 
 int main(int argc, char *argv[])
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 #else
-int status = serverSide();
+    serverSideDataReceive();
 
 #endif
     return 0;

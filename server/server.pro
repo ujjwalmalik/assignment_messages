@@ -5,9 +5,9 @@ CONFIG += console
 
 HEADERS += \
         tst_server.h \
-    server.h \
+    ../MessageReceiver.h \
     ../common.h
 
 SOURCES += \
         main.cpp \
-    server.cpp
+    ../MessageReceiver.cpp

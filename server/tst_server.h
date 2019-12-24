@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
-#include "server.h"
+#include "../MessageReceiver.h"
 
 using namespace testing;
 
@@ -13,7 +13,7 @@ TEST(InvalidServerInputFile, Suite)
 
 TEST(InvalidServerInputFilePath, Suite)
 {
-    ASGNMENT::MessageSender sender;
+    ASGNMENT::MessageReceiver sender;
     std::string fileP(ASGNMENT::inputFilePath);
     sender.setInputFilePath(fileP);
     ASSERT_EQ(fileP,sender.getFilePath());
@@ -22,7 +22,7 @@ TEST(InvalidServerInputFilePath, Suite)
 
 TEST(ReadServerInputFileFirstLine, Suite)
 {
-    ASGNMENT::MessageSender sender;
+    ASGNMENT::MessageReceiver sender;
     std::string fileP(ASGNMENT::inputFilePath);
     std::string inputFirstLine =  "1234";
     std::string inputSecondLine =  "Hello";
@@ -35,7 +35,7 @@ TEST(ReadServerInputFileFirstLine, Suite)
 
 TEST(CreateMessageQueue, Suite)
 {
-    ASGNMENT::MessageSender sender;
+    ASGNMENT::MessageReceiver sender;
     int mqIdendtifier = sender.createMessageQueue();
     std::cout<<mqIdendtifier;
     ASSERT_NE(mqIdendtifier,-1);
@@ -43,7 +43,7 @@ TEST(CreateMessageQueue, Suite)
 
 TEST(SendMessageOnQueue, Suite)
 {
-    ASGNMENT::MessageSender sender;
+    ASGNMENT::MessageReceiver sender;
     int mqIdendtifier = sender.createMessageQueue();
     if(mqIdendtifier >0)
     {

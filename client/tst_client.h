@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
-#include "client.h"
+#include "../MessageSender.h"
 
 using namespace testing;
 

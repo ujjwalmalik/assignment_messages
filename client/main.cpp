@@ -1,36 +1,44 @@
 #include "tst_client.h"
-#include"client.h"
+#include"../MessageSender.h"
 #include <gtest/gtest.h>
 #define UNIT_TESTING 0
 
-int clientSide()
+void clientSideDataSend()
 {
-    ASGNMENT::MessageSender sender;
+    ASGNMENT::MessageSender dataSender;
     std::string fileP(ASGNMENT::inputFilePath);
-    sender.setFilePath(fileP);
-    sender.createMessageQueue();
+    dataSender.setFilePath(fileP);
+    dataSender.createMessageQueue();
 
-    while(!sender.endOfFile())
+    while(!dataSender.endOfFile())
     {
-        std::string first   = sender.readNextInputFromFile();
-        std::string second  = sender.readNextInputFromFile();
+        std::string first   = dataSender.readNextInputFromFile();
+        std::string second  = dataSender.readNextInputFromFile();
         if((!first.length() == 0) && (!second.length() == 0))
         {
             ASGNMENT::AMessage a(first,second);
-            sender.sendAMessageOnQueue(a);
+            dataSender.sendAMessageOnQueue(a);
         }
     }
-    return 0;
+
+    return;
+}
+
+void clientSideReceiveAck()
+{
+
 }
 
 int main(int argc, char *argv[])
 {
+
 #if(UNIT_TESTING == 1)
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 #else
-int status = clientSide();
-int a = 100;
+clientSideDataSend();
+clientSideReceiveAck();
+
 #endif
     return 0;
 }

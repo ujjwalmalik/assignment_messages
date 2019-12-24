@@ -5,9 +5,9 @@ CONFIG += console
 
 HEADERS += \
         tst_client.h \
-    client.h \
-    ../common.h
+    ../common.h \
+    ../MessageSender.h
 
 SOURCES += \
         main.cpp \
-    client.cpp
+    ../MessageSender.cpp
