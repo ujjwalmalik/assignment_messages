@@ -2,6 +2,7 @@
 #include <errno.h>
 #include<fstream>
 #include"MessageReceiver.h"
+#include<assert.h>
 namespace ASGNMENT {
     void MessageReceiver::setInputFilePath(std::string filePath)
     {
@@ -42,13 +43,19 @@ namespace ASGNMENT {
         message.m_message_name = msgName;
     }
 
-    int MessageReceiver::createMessageQueue()
+    int MessageReceiver::createMessageQueue(std::string inputFilePath)
     {
-        key_t queueKey = ftok(ASGNMENT::inputFilePath.c_str(),1);
-        m_iQueueId = msgget(queueKey,IPC_CREAT|0666);
-        return m_iQueueId;
+        key_t queueKey = ftok(inputFilePath.c_str(),1);
+        int queueID = msgget(queueKey,IPC_CREAT|0666);
+        return queueID;
     }
-    std::vector<QMessage> MessageReceiver::receiveAllQMessageOnQueue()
+
+    void MessageReceiver::sendAckMessagesToQueue(int queueId)
+    {
+
+    }
+
+    std::vector<QMessage> MessageReceiver::receiveAllQMessageOnQueue(int queueID)
     {
         std::vector<QMessage> messages;
         QMessage m;
@@ -57,14 +64,16 @@ namespace ASGNMENT {
         int cnt = 0;
         do
         {
-            if(cnt == 19)
-            {
-                int a = 10;
-            }
             ++cnt;
-            size = msgrcv(m_iQueueId,&m,sizeof(QMessage),1,IPC_NOWAIT);
+            size = msgrcv(queueID,&m,sizeof(QMessage),ASGNMENT::DATA_MESSAGE_ID,IPC_NOWAIT); // recevice data message on q
             if(size !=-1)
             {
+
+                QMessage ack;
+                ack.id = ASGNMENT::ACK_MESSAGE_ID;
+                ack.message_id = m.message_id;
+
+                msgsnd(queueID,&ack,sizeof(QMessage),IPC_NOWAIT); //send ack on the same queue. repeat the message_id
                 messages.push_back(m);
             }
             else // size == -1
@@ -73,6 +82,10 @@ namespace ASGNMENT {
                 if(ENOMSG == errorCode)
                 {
                     bIsQueueEmpty = true;
+                }
+                else
+                {
+                    assert(0);
                 }
             }
         }

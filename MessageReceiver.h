@@ -15,7 +15,7 @@ namespace  ASGNMENT {
         std::string readNextInputFromFile();
 
         void    createMessage( const std::__cxx11::string  &msgId, const std::__cxx11::string &msgName);
-        int     createMessageQueue();
+        int     createMessageQueue(std::string inputFilePath);
 
         QMessage receiveQMessageOnQueue();
         QMessage convertAMessageToQMessage(AMessage a)
@@ -53,8 +53,10 @@ namespace  ASGNMENT {
         }
 
         bool writeMessageToFile(const QMessage &msg);
-        std::vector<QMessage> receiveAllQMessageOnQueue();
+        std::vector<QMessage> receiveAllQMessageOnQueue(int queueID);
         bool writeMessagesToFile(const std::vector<ASGNMENT::QMessage> &messages);
+    protected:
+        void sendAckMessagesToQueue(int queueId);
     private:
         std::string     m_sInputFilePath;
         std::string     m_sOutputFilePath;

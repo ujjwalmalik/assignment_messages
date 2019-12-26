@@ -4,8 +4,12 @@
 #include<string.h>
 #include<vector>
 namespace ASGNMENT {
-    const std::string inputFilePath = "/home/ujjwal/assignment/assignment_messages/input.txt";
-    const std::string outputFilePath = "/home/ujjwal/assignment/assignment_messages/output.txt";
+
+
+    const int DATA_MESSAGE_ID   =   1;
+    const int ACK_MESSAGE_ID    =   45;
+//    std::string inputFilePath = "/home/ujjwal/assignment/assignment_messages/input.txt";
+//    std::string outputFilePath = "/home/ujjwal/assignment/assignment_messages/output.txt";
     const int MAX_STRING_LEN = 60;
     struct AMessage
     {
@@ -37,7 +41,12 @@ namespace ASGNMENT {
         char        name[MAX_STRING_LEN];
     };
 
-
+    struct AckMessage
+    {
+        long        id;
+        int         ack_id;
+        char        name[1];
+    };
 }
 
 #endif // COMMON_H
