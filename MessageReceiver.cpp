@@ -61,11 +61,9 @@ namespace ASGNMENT {
         QMessage m;
         bool bIsQueueEmpty = false;
         ssize_t size = 0;
-        int cnt = 0;
         do
         {
-            ++cnt;
-            size = msgrcv(queueID,&m,sizeof(QMessage),ASGNMENT::DATA_MESSAGE_ID,IPC_NOWAIT); // recevice data message on q
+            size = msgrcv(queueID,&m,sizeof(QMessage),ASGNMENT::DATA_MESSAGE_ID,IPC_NOWAIT); // receive data message on q
             if(size !=-1)
             {
 
